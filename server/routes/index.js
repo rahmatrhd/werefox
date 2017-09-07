@@ -5,6 +5,7 @@ const indexController = require('../controllers/indexController')
 const userController = require('../controllers/usercontroller')
 
 const userVerify = (req, res, next) => {
+  console.log(req.headers.token);
   if (req.headers.token != null) {
     req.headers.userVerified = jwt.verify(req.headers.token, process.env.APP_SECRET)
     console.log(req.headers.userVerified);

@@ -9,8 +9,8 @@ const db = firebaseApp.database()
 const Rooms = db.ref('rooms')
 
 //milisecond
-const PHASE_DAY = 4 * 60 * 1000
-const PHASE_VOTE = 1 * 60 * 1000
+const PHASE_DAY = 3 * 1000
+const PHASE_VOTE = 3 * 1000
 
 module.exports = {
   createRoom: (req, res) => {
@@ -25,6 +25,7 @@ module.exports = {
         [req.headers.userVerified.id]: {
           role: null,
           alive: true,
+          username: req.headers.userVerified.username,
           roomMaster: true
         }
       },
@@ -40,7 +41,7 @@ module.exports = {
     Rooms.child(req.body.roomKey).child('member').once('value')
     .then(snapshot => {
       let members = Object.keys(snapshot.val())
-      let werefox = Math.floor(members.length * / 4) == 0 ? 1 : Math.floor(members.length * / 4)
+      let werefox = Math.floor(members.length / 4) == 0 ? 1 : Math.floor(members.length / 4)
 
       while (members.length > 0) {
         let rand = Math.floor(Math.random() * members.length)
@@ -62,13 +63,16 @@ module.exports = {
 }
 
 function checkWin(roomKey, cb) {
+  console.log('checkwin');
   //win or lanjut
   Rooms.child(roomKey).child('member').once('value')
   .then(snapshot => {
-    let members = Object.keys(snapshot.val())
-    let werefox = members.filter((member, index) => members[member].role == 'werefox' && members[member].alive == true)
-    let villager = members.filter((member, index) => members[member].role == 'villager' && members[member].alive == true)
-
+    let memberObj = snapshot.val()
+    let members = Object.keys(memberObj)
+    console.log(members);
+    let werefox = members.filter((member, index) => memberObj[member].role == 'werefox' && memberObj[member].alive == true)
+    let villager = members.filter((member, index) => memberObj[member].role == 'villager' && memberObj[member].alive == true)
+    console.log('werefox', werefox, 'villager', villager);
     if (werefox.length == 0) {
       Rooms.child(roomKey).child('over').set(true)
       Rooms.child(roomKey).child('winner').set('villager')
@@ -82,6 +86,7 @@ function checkWin(roomKey, cb) {
 }
 
 function day(roomKeyy) {
+  console.log('day');
   checkWin(roomKeyy, roomKey => {
     Rooms.child(roomKey).child('day').once('value')
     .then(snapshot => {
@@ -100,6 +105,7 @@ function day(roomKeyy) {
 }
 
 function vote(roomKey) {
+  console.log('vote');
   Rooms.child(roomKey).child('phase').set('vote')
 
   let now = new Date()
@@ -110,6 +116,7 @@ function vote(roomKey) {
     Rooms.child(roomKey).child('dayVotes').once('value')
     .then(snapshot => {
       let votesObj = snapshot.val()
+      console.log(votesObj);
 
       //sort vote tertinggi [[id, voteCount], ...]
       let votesArr = []
@@ -118,7 +125,14 @@ function vote(roomKey) {
       votesArr.sort((a, b) => b[1] - a[1])
 
       //death or draw
-      if (votesArr[0][1] == votesArr[1][1]) {
+      if (votesArr.length == 1) {
+        //votesArr[0] mati
+        Rooms.child(roomKey).child('voteDayResult').set({
+          status: 'dead',
+          who: votesArr[0][0]
+        })
+        Rooms.child(roomKey).child('member').child(votesArr[0][0]).child('alive').set(false)
+      } else if (votesArr[0][1] == votesArr[1][1]) {
         //game draw
         Rooms.child(roomKey).child('voteDayResult').set({
           status: 'draw'
@@ -140,37 +154,52 @@ function vote(roomKey) {
 }
 
 function night(roomKeyy) {
+  console.log('night');
   checkWin(roomKeyy, roomKey => {
+    console.log('masuk malam');
     Rooms.child(roomKey).child('phase').set('night')
     Rooms.child(roomKey).child('member').once('value')
     .then(snapshot => {
-      let members = Object.keys(snapshot.val())
-      let werefox = members.filter((member, index) => members[member].role == 'werefox' && members[member].alive == true)
+      let objMember = snapshot.val()
+      let members = Object.keys(objMember)
+      let werefox = members.filter((member, index) => objMember[member].role == 'werefox' && objMember[member].alive == true)
 
-      Rooms.child(roomKey).child('voteNightResult').on('value')
-      .then(nightVotes => {
+      Rooms.child(roomKey).child('nightVotes').on('value', nightVotes => {
         let votesObj = nightVotes.val()
         let voteCount = 0
         for (var key in votesObj)
           voteCount += votesObj[key]
 
-        if (voteCount == werefox.length) {
+        console.log(voteCount);
+
+        if (voteCount >= werefox.length) {
           //stop listening
-          Rooms.child(roomKey).child('voteNightResult').off()
+          Rooms.child(roomKey).child('nightVotes').off()
 
           let votesArr = []
           for (var key in votesObj)
             votesArr.push([key, votesObj[key]])
           votesArr.sort((a, b) => b[1] - a[1])
 
+          console.log(votesArr);
           //siapa yang mati
-          if (votesArr[0][1] == votesArr[1][1]) {
+          if (votesArr.length == 1) {
+            console.log('voteNightResult mati mutlak');
+            //votesArr[0] mati
+            Rooms.child(roomKey).child('voteNightResult').set({
+              status: 'dead',
+              who: votesArr[0][0]
+            })
+            Rooms.child(roomKey).child('member').child(votesArr[0][0]).child('alive').set(false)
+          } else if (votesArr[0][1] == votesArr[1][1]) {
+            console.log('voteNightResult draw');
             //game draw
             Rooms.child(roomKey).child('voteNightResult').set({
               status: 'draw'
             })
 
           } else {
+            console.log('voteNightResult mati');
             //votesArr[0] mati
             Rooms.child(roomKey).child('voteNightResult').set({
               status: 'dead',

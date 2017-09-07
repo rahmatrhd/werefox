@@ -1,4 +1,5 @@
 const cron = require('node-cron')
+const sillyname = require('sillyname')
 const firebase = require('firebase');
 const firebaseApp = firebase.initializeApp({
   databaseURL: 'https://werefox-hacktiv8.firebaseio.com',
@@ -17,6 +18,7 @@ module.exports = {
     console.log('new room');
     let newRoomKey = Rooms.push().key
     Rooms.child(newRoomKey).set({
+      name: sillyname(),
       phase: false,
       day: 0,
       start: false,

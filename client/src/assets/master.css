@@ -77,6 +77,22 @@ use this #f6f6f6 */
   padding: 5% 3%;
 }
 
+.room-wrap{
+  padding: 2% 5%;
+}
+  .chat-room{
+    background-color: #f6f6f6;
+    height: 80vh;
+    overflow-y: scroll;
+  }
+
+.right-sidebar{
+  text-align: left;
+}
+  .media-left img{
+    width: 50px;
+  }
+
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) {  }
 

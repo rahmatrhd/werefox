@@ -6,8 +6,19 @@
         <chatbox />
       </div>
       <div class="right-sidebar col-sm-12 col-md-3">
+        <div class="alert alert-info">You vote: <strong>username</strong></div>
         <h4>User List</h4>
         <ul class="media-list">
+          <li class="media">
+            <div class="media-left">
+              <a href="#" style="background-style: #fdb418">
+                <img class="media-object" src="../assets/thumbnail.png" alt="">
+              </a>
+            </div>
+            <div class="media-body">
+              <h4 class="media-heading">Username</h4>
+            </div>
+          </li>
           <li class="media">
             <div class="media-left">
               <a href="#" style="background-style: #fdb418">

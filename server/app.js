@@ -6,7 +6,7 @@ mongoose.connect('mongodb://rahmat:rahmat@cluster0-shard-00-00-gkut7.mongodb.net
 
 const app = express()
 
-var user = require('./models/users');
+var user = require('./routes/index');
 
 app.use(cors())
 app.use(bodyParser.json())

@@ -1,11 +1,11 @@
-const users = require('../models/user');
+const users = require('../models/users');
 const random = require('../helpers/hash')
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv').config()
 
 exports.signup = (req, res) => {
   let secret = random.randomStr(8);
-  users.userModel.create({
+  users.create({
     username: req.body.username,
     password: random.hashish(req.body.password, secret),
     salt: secret
@@ -16,7 +16,7 @@ exports.signup = (req, res) => {
 }
 
 exports.signin = (req, res) => {
-  users.userModel.findOne({
+  users.findOne({
     username: req.body.username
   })
     .then(data => {
@@ -37,7 +37,7 @@ exports.signin = (req, res) => {
 }
 
 exports.getuser = (req, res) => {
-  users.userModel.find({})
+  users.find({})
     .then(data => {
       res.send(data)
     })

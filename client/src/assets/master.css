@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css?family=Lato|Passion+One');
+
+/* font-family: 'Passion One', cursive;
+font-family: 'Lato', sans-serif; */
+
+/* orange muda : sandybrown
+use this : #f39e61
+bisa juga yang ini #fa6
+hsl(25,85,66)
+kalau ingin transparan rgba(243,158,97, 0.5)
+
+black dope : darkslategray
+use this : #2e2b24
+#332
+hsl(42,12,16)
+rgb(46,43,36)
+
+light orange : orangered
+use this : #f24f0b
+#f51
+hsl(17,91,49)
+rgb(242,79,11)
+
+white smoke : 
+use this #f6f6f6 */
+
+/* // Extra small devices (portrait phones, less than 576px)
+// No media query since this is the default in Bootstrap */
+
+/* // Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) { 
+  .box{
+    background-color: #f6f6f6;
+  }
+}
+
+/* // Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {  }
+
+/* // Large devices (desktops, 992px and up) */
+@media (min-width: 992px) { }
+
+/* // Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {  }

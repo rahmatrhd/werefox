@@ -6,6 +6,8 @@ mongoose.connect('mongodb://rahmat:rahmat@cluster0-shard-00-00-gkut7.mongodb.net
 
 const app = express()
 
+var user = require('./routes/index');
+
 app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
@@ -13,7 +15,7 @@ app.use(bodyParser.urlencoded({extended: false}))
 //routes
 const index = require('./routes/index')
 
-app.use('/', index)
+app.use('/', user)
 
 app.listen(process.env.PORT || 3000, () => {
   console.log('listening..')

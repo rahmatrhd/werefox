@@ -37,10 +37,27 @@ module.exports = {
   },
 
   startRoom: (req, res) => {
+    Rooms.child(req.body.roomKey).child('member').once('value')
+    .then(snapshot => {
+      let members = Object.keys(snapshot.val())
+      let werefox = Math.floor(members.length * / 4) == 0 ? 1 : Math.floor(members.length * / 4)
 
-    Rooms.child(req.body.roomKey).child('start').set(true)
-    //langsung masuk siang hari
-    day(req.body.roomKey)
+      while (members.length > 0) {
+        let rand = Math.floor(Math.random() * members.length)
+        if (werefox > 0) {
+          Rooms.child(req.body.roomKey).child('member').child(members[rand]).child('role').set('werefox')
+          members.splice(rand, 1)
+          werefox--
+        } else {
+          Rooms.child(req.body.roomKey).child('member').child(members[rand]).child('role').set('villager')
+          members.splice(rand, 1)
+        }
+      }
+
+      Rooms.child(req.body.roomKey).child('start').set(true)
+      //langsung masuk siang hari
+      day(req.body.roomKey)
+    })
   }
 }
 
@@ -79,7 +96,7 @@ function day(roomKeyy) {
         vote(roomKey)
       })
     })
-  }
+  })
 }
 
 function vote(roomKey) {

@@ -2,6 +2,7 @@ require('dotenv').config()
 const router = require('express').Router()
 const jwt = require('jsonwebtoken')
 const controller = require('../controllers/indexController')
+const controller = require('../controllers/usercontroller')
 
 const userVerify = (req, res, next) => {
   if (req.headers.token != null) {
@@ -13,14 +14,14 @@ const userVerify = (req, res, next) => {
       error: true,
       message: 'Not authenticated'
     })
-  // req.headers.userVerified = {
-  //   _id: '345',
-  //   username: 'rahmat'
-  // }
-  // next()
 }
 
 router.get('/create-room', userVerify, controller.createRoom)
 router.post('/start-room', userVerify, controller.startRoom)
+
+
+router.get('/', controller.getuser);
+router.post('/signin', controller.signin);
+router.post('/', controller.signup);
 
 module.exports = router

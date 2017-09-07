@@ -24,11 +24,6 @@ rgb(242,79,11)
 white smoke : 
 use this #f6f6f6 */
 
-*{
-	/* margin:0;
-	padding:0;
-  box-sizing: content-box; */
-}
 .card-wrap{
   margin: 0 5%;
 }
@@ -80,6 +75,9 @@ use this #f6f6f6 */
 .room-wrap{
   padding: 2% 5%;
 }
+  .room-wrap h2{
+    text-align: left;
+  }
   .chat-room{
     background-color: #f6f6f6;
     height: 80vh;
@@ -89,8 +87,19 @@ use this #f6f6f6 */
 .right-sidebar{
   text-align: left;
 }
+  .media-list{
+    background-color: #f6f6f6;
+  }
+    .media-list .media{
+      padding: 10px;
+      margin-top: 0;
+    }
   .media-left img{
-    width: 50px;
+    width: 30px;
+    background-color: #fdb418;
+  }
+  .media-body h4{
+    margin-top: 7px;
   }
 
 /* Small devices (tablets, 768px and up) */

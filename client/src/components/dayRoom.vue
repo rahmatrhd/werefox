@@ -3,7 +3,7 @@
     <div class="row room-wrap">
       <h2>Room</h2>
       <div class="chat-room col-sm-12 col-md-9">
-        <chatbox />
+        <chatbox :id="id"/>
       </div>
       <div class="right-sidebar col-sm-12 col-md-3">
         <div class="alert alert-info">You vote: <strong>username</strong></div>
@@ -38,8 +38,9 @@
 <script>
 import chatbox from '@/components/Chatbox'
 export default {
-  name: 'dayroom ',
-  comopnents: {
+  name: 'dayroom',
+  props: ['id'],
+  components: {
     chatbox
   }
 }

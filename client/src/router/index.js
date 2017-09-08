@@ -10,6 +10,15 @@ export default new Router({
       path: '/',
       name: 'Hello',
       component: Hello
+    },
+    {
+      path: '/dashboard',
+      component: Dashboard
+    },
+    {
+      path: '/room/:id',
+      component: Room,
+      props: true
     }
   ]
 })

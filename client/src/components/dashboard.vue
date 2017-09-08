@@ -28,6 +28,7 @@
 
 <script>
 import addRoom from '@/components/AddRoom'
+
 export default {
   name: 'dashboard',
   components: {

@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css?family=Lato|Passion+One');
+
+/* font-family: 'Passion One', cursive;
+font-family: 'Lato', sans-serif; */
+
+/* orange muda : sandybrown
+use this : #f39e61
+bisa juga yang ini #fa6
+hsl(25,85,66)
+kalau ingin transparan rgba(243,158,97, 0.5)
+
+black dope : darkslategray
+use this : #2e2b24
+#332
+hsl(42,12,16)
+rgb(46,43,36)
+
+light orange : orangered
+use this : #f24f0b
+#f51
+hsl(17,91,49)
+rgb(242,79,11)
+
+white smoke :
+use this #f6f6f6 */
+
+.card-wrap{
+  margin: 0 5%;
+}
+.cardo{
+  display: block;
+  line-height: 1.42857143;
+  margin-bottom: 20px;
+}
+  .box{
+    background-color: #f6f6f6;
+    margin: 5px;
+  }
+  .cardo .img-wrapper{
+    position: relative;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: cover !important;
+    transition: opacity 0.2s;
+	  height: 150px;
+	  width: 100%;
+  }
+  .cardo .add-wrapper{
+    position: relative;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: cover !important;
+    transition: opacity 0.2s;
+	  height: 150px;
+	  width: 100%;
+  }
+    .add-wrapper img, .img-wrapper img{
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+    }
+    .cardo img{
+      height: 70px;
+    }
+  .card-block{
+    padding: 10px;
+    border-top: 2px dashed #fdb418;
+  }
+
+.top-wrap{
+  padding: 5% 3%;
+}
+
+.room-wrap{
+  padding: 2% 5%;
+}
+  .room-wrap h2{
+    text-align: left;
+  }
+  .chat-room{
+    background-color: #f6f6f6;
+    height: 80vh;
+    overflow-y: scroll;
+  }
+
+.right-sidebar{
+  text-align: left;
+}
+  .media-list{
+    background-color: #f6f6f6;
+  }
+    .media-list .media{
+      padding: 10px;
+      margin-top: 0;
+    }
+  .media-left img{
+    width: 30px;
+    background-color: #fdb418;
+  }
+  .media-body h4{
+    margin-top: 7px;
+  }
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) {  }
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) {  }
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width:1200px) {  }

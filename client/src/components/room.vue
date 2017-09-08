@@ -1,7 +1,7 @@
 <template>
   <div class="room">
     <div class="container-fluid">
-      <dayroom />
+      <dayroom :id="id" />
     </div>
   </div>
 </template>
@@ -10,6 +10,7 @@
 import dayroom from '@/components/dayRoom'
 export default {
   name: 'room',
+  props: ['id'],
   components: {
     dayroom
   }

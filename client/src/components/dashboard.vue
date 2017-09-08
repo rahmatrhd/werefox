@@ -8,8 +8,8 @@
         <div class="col-sm-12 col-md-3" >
           <ul class="nav navbar-nav">
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" 
-              data-toggle="dropdown" role="button" 
+              <a href="#" class="dropdown-toggle"
+              data-toggle="dropdown" role="button"
               aria-expanded="false"> Username
               <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
@@ -28,6 +28,7 @@
 
 <script>
 import addRoom from '@/components/AddRoom'
+
 export default {
   name: 'dashboard',
   components: {

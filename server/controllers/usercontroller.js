@@ -25,7 +25,7 @@ exports.signin = (req, res) => {
         jwt.sign({
           username: data.username,
           id: data._id
-        }, process.env.SECRET, (err, token) => {
+        }, process.env.APP_SECRET, (err, token) => {
           if (err) console.log(err)
           res.send(token)
         });

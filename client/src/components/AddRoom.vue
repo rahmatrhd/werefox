@@ -11,7 +11,7 @@
           </div>
         </div>
       </div>
-      <div class="cardo col-sm-12 col-md-3" v-for="room in rooms">
+      <div class="cardo col-sm-12 col-md-3" v-for="room in rooms" @click="joinroom(room['.key'])">
         <div class="box">
           <div class="img-wrapper">
             <img src="../assets/wolfie.png" />
@@ -28,12 +28,34 @@
 </template>
 
 <script>
-export default {
-  name: 'addroom',
-  firebase () {
-    return {
-      rooms: this.$db.ref('rooms')
+  import jwt from 'jsonwebtoken'
+  export default {
+    name: 'addroom',
+    firebase () {
+      return {
+        rooms: this.$db.ref('rooms')
+      }
+    },
+    data () {
+      return {
+        mydata: []
+      }
+    },
+    methods: {
+      joinroom (idroom) {
+        this.$db.ref('rooms').child(idroom).child('member').child(this.mydata.id).set({
+          username: this.mydata.username,
+          alive: true
+        })
+      },
+      gettoken () {
+        var decode = jwt.verify(window.localStorage.getItem('token'), 'werefox')
+        this.mydata = decode
+      }
+    },
+    created () {
+      this.gettoken()
     }
   }
-}
+
 </script>

@@ -4,11 +4,11 @@ const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv').config()
 
 exports.signup = (req, res) => {
-  let secret = random.randomStr(8);
+  let APP_ = random.randomStr(8);
   users.create({
     username: req.body.username,
-    password: random.hashish(req.body.password, secret),
-    salt: secret
+    password: random.hashish(req.body.password, APP_),
+    salt: APP_
   })
     .then(data => {
       res.send(data)
@@ -25,7 +25,7 @@ exports.signin = (req, res) => {
         jwt.sign({
           username: data.username,
           id: data._id
-        }, process.env.SECRET, (err, token) => {
+        }, process.env.APP_SECRET, (err, token) => {
           if (err) console.log(err)
           res.send(token)
         });

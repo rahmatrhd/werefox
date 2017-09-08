@@ -27,7 +27,7 @@
 <script>
 import chatbox from '@/components/Chatbox'
 export default {
-  name: 'dayroom ',
+  name: 'dayroom',
   comopnents: {
     chatbox
   }
